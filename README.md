@@ -19,7 +19,7 @@ Tested on a Xiaomi Mi TV Stick 4K (MiTV-AYFR0, Android 11): mirroring from iPhon
 Needs JDK 17+ (Android Studio's bundled JBR is fine) and the Android SDK; Gradle downloads the NDK and CMake.
 
 ```bash
-git clone https://github.com/<you>/<this-repo>.git && cd <this-repo>
+git clone https://github.com/billsweg/android-tv-airplay-receiver.git && cd android-tv-airplay-receiver
 git submodule update --init --recursive
 echo "sdk.dir=$HOME/Library/Android/sdk" > local.properties   # Linux: $HOME/Android/Sdk
 ./gradlew assembleDebug
