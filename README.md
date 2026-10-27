@@ -1,4 +1,53 @@
-# AirPlay Receiver for Android
+# AirPlay Receiver for Android TV sticks
+
+Turn a cheap Android TV stick into an **AirPlay screen-mirroring target** for iPhone, iPad and Mac -
+no Play Store, no ads, no tracking. You build the APK yourself from source and install it over ADB.
+
+This is a build of [jqssun/android-airplay-server](https://github.com/jqssun/android-airplay-server)
+(GPL-3.0), which uses [UxPlay](https://github.com/FDH2/UxPlay) for the AirPlay protocol. All credit for
+the receiver goes to those projects. The only change here: the debug build targets **armeabi-v7a**
+(32-bit ARM), which is what most Android TV sticks run, so the APK is smaller and builds faster.
+
+Tested on a Xiaomi Mi TV Stick 4K (MiTV-AYFR0, Android 11): mirroring from iPhone works out of the box.
+
+## What works
+- Screen mirroring from iOS / iPadOS / macOS (Control Center > Screen Mirroring)
+- Audio streaming, video casting (YouTube, Photos), optional PIN
+- **Not supported:** DRM content, e.g. films from Apple's TV app
+
+## Build (macOS or Linux)
+Needs JDK 17+ (Android Studio's bundled JBR is fine) and the Android SDK; Gradle downloads the NDK and CMake.
+
+```bash
+git clone https://github.com/<you>/<this-repo>.git && cd <this-repo>
+git submodule update --init --recursive
+echo "sdk.dir=$HOME/Library/Android/sdk" > local.properties   # Linux: $HOME/Android/Sdk
+./gradlew assembleDebug
+# APK: app/build/outputs/apk/debug/app-debug.apk
+```
+For a 64-bit device (arm64-v8a) set `abiFilters += allAbis` in the debug block of `app/build.gradle.kts`.
+Check your device with `adb shell getprop ro.product.cpu.abi`.
+
+## Install on the TV
+1. On the TV: Settings > Device Preferences > About > press **Build** 7 times, then turn on **USB debugging**
+   (and Network debugging if listed) in Developer options.
+2. ```bash
+   adb connect <tv-ip>:5555        # accept the "Allow USB debugging?" prompt on the TV
+   adb install -r app/build/outputs/apk/debug/app-debug.apk
+   ```
+   If `adb install` hangs on Android 14, push the APK and run `pm install -r` from `adb shell` instead.
+3. Open **AirPlay Receiver** on the TV once. It shows "Waiting for connection".
+4. On the iPhone (same Wi-Fi): Control Center > **Screen Mirroring** > pick the receiver.
+5. Switch USB/Network debugging off again when you're done - ADB over the network is unencrypted.
+
+## Licence
+GPL-3.0, same as the upstream project. See [LICENSE](LICENSE). Not affiliated with Apple Inc.
+
+---
+
+## Upstream README
+
+### AirPlay Receiver for Android
 
 [![Stars](https://img.shields.io/github/stars/jqssun/android-airplay-server)](https://github.com/jqssun/android-airplay-server)
 [![GitHub](https://img.shields.io/github/downloads/jqssun/android-airplay-server/total?label=GitHub&logo=GitHub)](https://github.com/jqssun/android-airplay-server/releases)

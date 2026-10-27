@@ -52,7 +52,7 @@ android {
 
     buildTypes {
         debug {
-            ndk { abiFilters += allAbis }
+            ndk { abiFilters += "armeabi-v7a" }  // 32-bit ARM only: what most Android TV sticks run; smaller APK, faster build. Use allAbis for other devices.
         }
         release {
             isMinifyEnabled = true
