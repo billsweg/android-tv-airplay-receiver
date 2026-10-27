@@ -10,6 +10,12 @@ the receiver goes to those projects. The only change here: the debug build targe
 
 Tested on a Xiaomi Mi TV Stick 4K (MiTV-AYFR0, Android 11): mirroring from iPhone works out of the box.
 
+## Download
+Ready-built APK for 32-bit ARM Android TV sticks (armeabi-v7a, Android 6+):
+[Releases](https://github.com/billsweg/android-tv-airplay-receiver/releases/latest) > `airplay-receiver-androidtv-armv7-0.0.36.apk`.
+SHA-256: `0dff8607bd01617c67ae9fc8f488b41040bcc72fe551b6cdd308f6c4b5b2310c`. Debug-signed build of this source; install it with `adb install -r airplay-receiver-androidtv-armv7-0.0.36.apk`
+(steps below), or build it yourself.
+
 ## What works
 - Screen mirroring from iOS / iPadOS / macOS (Control Center > Screen Mirroring)
 - Audio streaming, video casting (YouTube, Photos), optional PIN
